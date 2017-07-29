@@ -47,8 +47,19 @@
 
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live?
+    const a4 = inventors.reduce((acc,i) => {
+        return acc + (i.passed - i.year);  // need to plus 1
+    }, 0);
+    console.log(a4);
 
     // 5. Sort the inventors by years lived
+    const a5 = inventors
+              .map( i => Object.assign(i, { yearsLived: i.passed - i.year }) )
+              .sort( (a,b) => a.yearsLived - b.yearsLived )
+              .map ( i => { delete i.yearsLived;
+                            return i;
+                          } );
+    console.table(a5);
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
@@ -56,11 +67,35 @@
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
+    // split by ,
+    const a6 = people
+              .sort( (a,b) => a - b );
+
+//              .forEach(p => console.log(p.substring(0, p.indexOf(','))));
+//              .sort( (a,b) => a.substring(0, a.indexOf(',')) - b.substring(0, b.indexOf(',')) );
+
+              //.map( p => Object.assign(p, { lastname: p.substring(0, p.indexOf(',')) }  ) )
+              //.sort( (a,b) => a.lastname - b.lastname )
+              /*.map ( p => { delete p.lastname;
+                            return p;
+                          });*/
+    console.log('----');
+    console.log(a6);
+    console.table(a6);
 
     // 8. Reduce Exercise
     // Sum up the instances of each of these
-    const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
-
+    const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car',
+      'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+    const frequency = data.reduce((acc, d) => {
+        if (Object.keys(acc).indexOf(d) >= 0) {
+          acc[d] = acc[d] + 1;
+        } else {
+          acc[d] = 1;
+        }
+        return acc;
+    }, {});
+    console.log(frequency);
   </script>
 </body>
 </html>
