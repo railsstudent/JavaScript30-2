@@ -44,7 +44,6 @@
     const a3 = inventors.sort((a,b) => a.year - b.year);
     console.table(a3);
 
-
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live?
     const a4 = inventors.reduce((acc,i) => {
@@ -54,11 +53,12 @@
 
     // 5. Sort the inventors by years lived
     const a5 = inventors
-              .map( i => Object.assign(i, { yearsLived: i.passed - i.year }) )
-              .sort( (a,b) => a.yearsLived - b.yearsLived )
-              .map ( i => { delete i.yearsLived;
-                            return i;
-                          } );
+              .sort( (a,b) => {
+                const first = a.passed - a.year;
+                const second = b.passed - b.year;
+                console.log(first - second);
+                return first - second;
+              });
     console.table(a5);
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
