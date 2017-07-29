@@ -36,19 +36,30 @@
 
     // Array.prototype.map()
     // 2. Give us an array of the inventors' first and last names
-    const a2 = inventors.map(i => ({ first: i.first, last: i.last }));
-    console.table(a2);
+    const a2 = inventors.map(i => `${i.first} ${i.last }`);
+    console.log(a2);
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
-    const a3 = inventors.sort((a,b) => b.year - a.year);
+    const a3 = inventors.sort((a,b) => a.year - b.year);
     console.table(a3);
-
 
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live?
+    const a4 = inventors.reduce((acc,i) => {
+        return acc + (i.passed - i.year);  // need to plus 1
+    }, 0);
+    console.log(a4);
 
     // 5. Sort the inventors by years lived
+    const a5 = inventors
+              .sort( (a,b) => {
+                const first = a.passed - a.year;
+                const second = b.passed - b.year;
+                console.log(first - second);
+                return first - second;
+              });
+    console.table(a5);
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
@@ -56,11 +67,25 @@
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
+    // split by ,
+    const a6 = people
+              .sort( (a,b) => {
+                const [aLast,  ] = a.split(',');
+                const [bLast,  ] = b.split(',');
+                return aLast === bLast ? 0 :
+                  ((aLast < bLast) ? -1 : 1);
+              });
+    console.log(a6);
 
     // 8. Reduce Exercise
     // Sum up the instances of each of these
-    const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
-
+    const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car',
+      'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+    const frequency = data.reduce((acc, d) => {
+        acc[d] = !acc[d] ? 1 : acc[d] + 1;
+        return acc;
+    }, {});
+    console.log(frequency);
   </script>
 </body>
 </html>
