@@ -36,12 +36,12 @@
 
     // Array.prototype.map()
     // 2. Give us an array of the inventors' first and last names
-    const a2 = inventors.map(i => ({ first: i.first, last: i.last }));
-    console.table(a2);
+    const a2 = inventors.map(i => `${i.first} ${i.last }`);
+    console.log(a2);
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
-    const a3 = inventors.sort((a,b) => b.year - a.year);
+    const a3 = inventors.sort((a,b) => a.year - b.year);
     console.table(a3);
 
 
@@ -69,7 +69,15 @@
     // Sort the people alphabetically by last name
     // split by ,
     const a6 = people
-              .sort( (a,b) => a - b );
+              .sort( (a,b) => {
+                firstLastname = a.substring(0, a.indexOf(','));
+                secondLastname = b.substring(0, b.indexOf(','));
+                console.log(firstLastname, secondLastname);
+                console.log(firstLastname === secondLastname ? 0 :
+                          ((firstLastname < secondLastname) ? -1 : 1));
+                return firstLastname === secondLastname ? 0 :
+                          ((firstLastname < secondLastname) ? -1 : 1);
+              });
 
 //              .forEach(p => console.log(p.substring(0, p.indexOf(','))));
 //              .sort( (a,b) => a.substring(0, a.indexOf(',')) - b.substring(0, b.indexOf(',')) );
@@ -80,7 +88,7 @@
                             return p;
                           });*/
     console.log('----');
-    console.log(a6);
+    //console.log(a6);
     console.table(a6);
 
     // 8. Reduce Exercise
