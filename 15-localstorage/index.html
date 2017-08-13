@@ -22,6 +22,8 @@
     <form class="add-items">
       <input type="text" name="item" placeholder="Item Name" required>
       <input type="submit" value="+ Add Item">
+      <input type="button" class="clear" value="Clear All">
+      <input type="button" class="check-all" value="Check All">
     </form>
   </div>
 
@@ -31,6 +33,11 @@
   const addItems = document.querySelector('.add-items');
   const itemsList = document.querySelector('.plates');
   const items = JSON.parse(localStorage.getItem('items')) || [];
+  const btnClear = document.querySelector('.clear');
+  const btnCheckAll = document.querySelector('.check-all');
+  
+  console.log(btnClear);
+  console.log(btnCheckAll);
   
   function addItem(e) {
     e.preventDefault();
@@ -70,10 +77,40 @@
     populateList(items, itemsList);
   }
   
+  function clearItem() {
+      items.splice(0, items.length);
+      console.log(items);
+      populateList(items, itemsList);
+      localStorage.setItem('items', JSON.stringify(items));
+  }
+  
+  function toggleCheckAll() {
+      if (btnCheckAll.value === 'Check All') {
+        items.map(item => item.done = true);
+        btnCheckAll.value = 'Uncheck All';
+      } else {
+        items.map(item => item.done = false);
+        btnCheckAll.value = 'Check All';
+      }
+      localStorage.setItem('items', JSON.stringify(items));
+      populateList(items, itemsList);
+  }
+  
+  function populateButtonLabel(items) {
+    if (items.every(item => item.done)) {
+      btnCheckAll.value = 'Uncheck All';
+    } else {
+      btnCheckAll.value = 'Check All';
+    }
+  }
+  
   addItems.addEventListener('submit', addItem);
   itemsList.addEventListener('click', toggleDone);
+  btnClear.addEventListener('click', clearItem);
+  btnCheckAll.addEventListener('click', toggleCheckAll);
   
   populateList(items, itemsList);
+  populateButtonLabel(items);
 
 </script>
 
