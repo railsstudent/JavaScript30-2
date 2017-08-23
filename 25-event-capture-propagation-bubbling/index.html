@@ -12,7 +12,6 @@
       </div>
     </div>
   </div>
-
 <style>
   html {
     box-sizing: border-box;
@@ -37,8 +36,56 @@
   }
 </style>
 
-<button></button>
+<button>Click Me!!!</button>
+
 <script>
+  const divs = document.querySelectorAll('div');
+  const button = document.querySelector('button');
+
+  function logText() {
+    //console.log('logText...');
+    console.log(this.classList.value);
+  }
+
+  function stopPropagate(e) {
+    // stop bubble event up
+    e.stopPropagation();
+    console.log(this.classList.value);
+  }
+
+  // Bubble up
+  // output: three, two, one
+  //divs.forEach(div => div.addEventListener('click', logText));
+
+  // Capture down
+  // output: one, two, three
+  //divs.forEach(div => div.addEventListener('click', logText, {
+  //  capture: true
+  //}));
+
+  // Same as bubble up
+  // output: one, two, three
+  //divs.forEach(div => div.addEventListener('click', logText, {
+  //  capture: false
+  //}));
+
+  // stop bubble event up
+  // divs.forEach(div => div.addEventListener('click', stopPropagate));
+
+  // stop capturing down
+  divs.forEach(div => div.addEventListener('click', stopPropagate, {
+    capture: true
+  }));
+
+  // button click fires one time
+//  button.addEventListener('click', function() {
+//    console.log('click me!!!');
+//  }, { once: true });
+
+  // button click fires many times
+  button.addEventListener('click', function() {
+    console.log('click me!!!');
+  }, { once: false });
 
 </script>
 </body>
