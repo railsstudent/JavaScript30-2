@@ -67,3 +67,7 @@ h1 {
 .hole.up .mole {
   top:0;
 }
+
+.high-score {
+  font-size: 3rem;
+}
