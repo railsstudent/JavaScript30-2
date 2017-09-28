@@ -94,6 +94,6 @@ nav a {
   max-width: 500px;
 }
 
-.fixed-nav.site-wrap {
+.fixed-nav .site-wrap {
   transform: scale(1);
 }
