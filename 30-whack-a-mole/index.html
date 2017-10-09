@@ -103,7 +103,7 @@
       return; // Cheater
     }
     score++;
-    this.classList.remove('up');
+    this.parentNode.classList.remove('up');
     scoreBoard.textContent = score;
   }
   moles.forEach(mole => mole.addEventListener('click', bonk));
